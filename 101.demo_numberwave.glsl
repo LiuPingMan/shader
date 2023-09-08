@@ -10,7 +10,7 @@ void main(){
   float M,
   A,
   T=u_time;
-  vec4 color=vec4(0.);
+  vec4 color=vec4(1.);
   for(float R=0.;R<33.;R++){
     vec4 X=vec4(u_resolution,1.,1.);
     
@@ -20,12 +20,13 @@ void main(){
     p.y=abs(abs(p.y)-1.);
     
     X=fract(dot(X=ceil(p*4.),sin(X))+X);
-    X.g*=5.;
+    X.r*=4.;
+    X.b*=4.;
     M=4.*pow(smoothstep(1.,.47,texture2D(number,(p.xz+ceil(T+X.x))/4.).a),9.)-5.;
     
     A+=p.y*.6-(M+A+A+3.)/67.;
     
-    color+=(X.a+.5)*(X+A)*(1.4-p.y)/2e2/M/M/exp(A*.1);
+    color-=(X.a+.5)*(X+A)*(1.4-p.y)/2e2/M/M/exp(A*.1);
   }
   gl_FragColor=color;
 }
